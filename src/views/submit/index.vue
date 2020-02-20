@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="购物车" left-text="返回" left-arrow />
+    <van-nav-bar title="我的提交" left-text="返回" left-arrow />
     <Footer page="cart"></Footer>
   </div>
 </template>

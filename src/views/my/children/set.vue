@@ -40,7 +40,7 @@ export default {
 .logout {
   bottom: 0;
   height: 50px;
-  color: #ff5f16;
+  color: #01ADED;
 }
 </style>
 

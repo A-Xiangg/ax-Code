@@ -13,9 +13,9 @@
     <!-- 主体 -->
     <main class="mt-10">
       <div class="bg-fff">
-        <van-cell title="我的订单" isLink to="/order"></van-cell>
-        <van-cell title="优惠卡" isLink></van-cell>
-        <van-cell title="钱包" isLink></van-cell>
+        <van-cell title="客户管理" isLink to="/order"></van-cell>
+        <van-cell title="用户管理" isLink></van-cell>
+        <van-cell title="职员管理" isLink></van-cell>
         <van-cell title="设置" isLink to="/my/set"></van-cell>
       </div>
     </main>

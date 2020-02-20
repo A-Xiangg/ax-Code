@@ -8,9 +8,9 @@
       </router-link>
     </li>
     <li class="item">
-      <router-link to="/cart" class="flex2 aic f20 text" active-class="active">
+      <router-link to="/submit" class="flex2 aic f20 text" active-class="active">
         <van-icon class="text" name="shopping-cart-o"></van-icon>
-        <p class="mt-5 text f12">购物车</p>
+        <p class="mt-5 text f12">我的提交</p>
       </router-link>
     </li>
     <li class="item">
@@ -44,7 +44,7 @@ export default {};
     color: #797d82;
   }
   .active .text {
-    color: @red;
+    color: @green;
   }
 }
 </style>

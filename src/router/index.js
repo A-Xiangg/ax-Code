@@ -14,17 +14,24 @@ const router = new Router({
       path: "/index",
       component: () => import("@/views/index/index"),
       meta: {
-        title: "每日生鲜",
+        title: "首页",
         // 缓存首页
         keepAlive: true
       }
     },
     {
-      path: "/cart",
+      path: "/submit",
       meta: {
-        title: "购物车"
+        title: "我的提交"
       },
-      component: () => import("@/views/cart/index")
+      component: () => import("@/views/submit/index")
+    },
+    {
+      path: "/matter",
+      meta: {
+        title: "记一笔"
+      },
+      component: () => import("@/views/add/matter")
     },
     {
       path: "/my",
