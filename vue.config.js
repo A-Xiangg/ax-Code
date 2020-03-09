@@ -2,10 +2,12 @@ const autoprefixer = require("autoprefixer");
 const pxtorem = require("postcss-pxtorem");
 const path = require('path');
 const themePath = path.resolve(__dirname,'src/assets/style/theme.less');
+const webpack = require("webpack");
+
 
 module.exports = {
   // 关闭eslint检查
-  lintOnSave: false,
+  lintOnSave: true,
   // 配置css前缀,px转rem
   css: {
     loaderOptions: {
@@ -42,7 +44,15 @@ module.exports = {
   configureWebpack: {
     externals: {
       axios: "axios" // 配置使用CDN
-    }
+    },
+    //支持jquery
+    plugins: [
+      new webpack.ProvidePlugin({
+        $:"jquery",
+        jQuery:"jquery",
+        "windows.jQuery":"jquery"
+      })
+    ]
   }
 
   // css: {

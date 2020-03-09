@@ -239,7 +239,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .van-contact-list__bottom {
     display: none;
   }

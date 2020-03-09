@@ -1,0 +1,142 @@
+.gd-item {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  padding-bottom: 4px;
+  background-color: white;
+}
+.gd-item .item {
+  width: 95%;
+  margin: 0.5em auto 2px auto;
+  border-right-color: #e8e8e8;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: #e8e8e8;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  box-shadow: 2px 4px 6px #e8e8e8;
+}
+.gd-item .gd-item1 {
+  overflow: hidden;
+  width: 95%;
+  height: 100%;
+}
+.gd-tm {
+  width: 80%;
+  float: left;
+}
+.gd-item .gdnum {
+  width: 95%;
+  margin: 0 auto;
+  height: auto;
+  overflow: hidden;
+  padding: 2px 0;
+}
+.item .gdnum .gdnum-1 {
+  float: left;
+  width: 100%;
+}
+.gd-item .gdnum dl {
+  display: block;
+  float: left;
+  font: 13px/28px 'microsoft yahei';
+  color: #333;
+}
+.item .gdnum .gdnum-2 {
+  float: left;
+  width: 100%;
+}
+.gd-item .gdnum em {
+  display: block;
+  float: left;
+  font: 13px/28px 'microsoft yahei';
+  color: #333;
+}
+.gd-item .gethum {
+  width: 95%;
+  margin: 0 auto;
+  height: auto;
+  overflow: hidden;
+}
+.item .gethum .gdnum-1 {
+  float: left;
+  width: 60%;
+}
+.gd-item .gethum dl {
+  display: block;
+  float: left;
+  font: 13px/28px 'microsoft yahei';
+  color: #333;
+}
+.gd-item .gethum dl {
+  display: block;
+  float: left;
+  font: 13px/28px 'microsoft yahei';
+  color: #333;
+}
+.item .gethum .gdnum-2 {
+  float: left;
+  width: 40%;
+}
+.gd-item .gethum em {
+  display: block;
+  float: left;
+  font: 13px/28px 'microsoft yahei';
+  color: #333;
+}
+.gb-item1 {
+  width: 20%;
+  float: left;
+  margin: 0 auto;
+  height: auto;
+  padding-top: 10%;
+  /* padding-right: 1em; */
+  /* padding-left: .5em; */
+}
+.gb-item1 .Authorization {
+  float: right;
+  height: 20%;
+  border: 1px solid #dcdfe6;
+  padding: 0.7em;
+  color: #606266;
+  font-size: 12px;
+}
+button {
+  outline: none;
+  border-radius: 10px;
+}
+input,
+select,
+button {
+  font: 100% tahoma, \5b8b\4f53, arial;
+  vertical-align: baseline;
+  border-radius: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.icon-bianji {
+  font-size: 12px;
+}
+.tables {
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+}
+.p {
+  display: block;
+  float: left;
+  font-size: 13px ;
+  color: #333;
+}
+.listmore {
+  display: block;
+  text-align: center;
+  height: 25px;
+  background-color: #f9fafc;
+  border-top: 1px solid #f8f8f8;
+  color: #1594d1;
+  font: normal 12px/25px Tahoma, Verdana;
+}
+/*# sourceMappingURL=staff.css.map */

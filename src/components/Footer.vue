@@ -9,7 +9,7 @@
     </li>
     <li class="item">
       <router-link to="/submit" class="flex2 aic f20 text" active-class="active">
-        <van-icon class="text" name="shopping-cart-o"></van-icon>
+        <span class="icon iconfont icon-tijiao"></span>
         <p class="mt-5 text f12">我的提交</p>
       </router-link>
     </li>
@@ -32,7 +32,7 @@
 export default {};
 </script>
 
-<style scoped lang="less">
+<style lang="less"  >
 .footer {
   border-top: 1px solid #ebebeb;
   height: 50px;

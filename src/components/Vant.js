@@ -1,17 +1,22 @@
 import Vue from "vue";
 import {
+  Grid,
+  GridItem,
+  PullRefresh,
   Icon,
   Tab,
   Tabs,
   List,
   Cell,
   Button,
+  SwipeCell ,
   Popup,
   Field,
   Dialog,
   Toast,
   Swipe,
   Form,
+  Search,
   SwipeItem,
   AddressList,
   Divider,
@@ -32,7 +37,8 @@ import {
   Overlay,
   Calendar,
   Col,
-  Row
+  Row,
+  Card,
 } from "vant";
 
 Vue.use(Icon);
@@ -68,3 +74,9 @@ Vue.use(Uploader);
 Vue.use(ContactCard);
 Vue.use(ContactList);
 Vue.use(ContactEdit);
+Vue.use(PullRefresh );
+Vue.use(SwipeCell );
+Vue.use(Card  );
+Vue.use(Search  );
+Vue.use(Grid);
+Vue.use(GridItem);

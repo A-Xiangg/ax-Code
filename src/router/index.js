@@ -24,7 +24,7 @@ const router = new Router({
       meta: {
         title: "我的提交"
       },
-      component: () => import("@/views/submit/index")
+      component: () => import("@/views/submit/submit")
     },
     {
       path: "/matter",
@@ -32,6 +32,13 @@ const router = new Router({
         title: "记一笔"
       },
       component: () => import("@/views/add/matter")
+    },
+    {
+      path: "/Review",
+      meta: {
+        title: "审核"
+      },
+      component: () => import("@/views/Approval/Review")
     },
     {
       path: "/my",
@@ -44,6 +51,27 @@ const router = new Router({
             title: "个人中心"
           },
           component: () => import("@/views/my/children/center")
+        },
+        {
+          path: "client",
+          meta: {
+            title: "客户管理"
+          },
+          component: () => import("@/views/my/client/client")
+        },
+        {
+          path: "authority",
+          meta: {
+            title: "权限管理"
+          },
+          component: () => import("@/views/my/authority/index")
+        },
+        {
+          path: "staff",
+          meta: {
+            title: "客户管理"
+          },
+          component: () => import("@/views/my/staff/staff")
         },
         {
           path: "set",

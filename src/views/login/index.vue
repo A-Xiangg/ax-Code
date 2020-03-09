@@ -76,10 +76,9 @@ export default {
       { validator: this.codeValidator, message: "验证码错误" }
     ];
     return {
-      phone: "13800000000",
-      smsCode: "123456",
       username: "",
-      password: ""
+      password: "",
+      code: '',
     };
   },
   methods: {
@@ -108,7 +107,8 @@ export default {
         phone: this.phone,
         smsCode: this.smsCode
       };
-      this.$axios
+      this.$router.push("/index");
+      /*this.$axios
         .post(url, data)
         .then(res => {
           // 修改登陆状态
@@ -117,11 +117,11 @@ export default {
           this.$store.commit("updateToken", res.user.token);
           // 把用户名存入store
           this.$store.commit("updateUsername", res.user.phone);
-          this.$router.push("/my");
+
         })
         .catch(err => {
           console.log("登陆失败");
-        });
+        });*/
     }
   }
 };

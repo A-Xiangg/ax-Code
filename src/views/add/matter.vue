@@ -1,8 +1,8 @@
 <template>
     <div>
         <header  >
-        <van-nav-bar title="记一笔"  left-color="#fff" :border=false  @click-left="back" left-arrow/>
-        <van-tabs  background="#01ADED" title-active-color="#83fbff" :border=false title-inactive-color="#ffffff"	 color="#FFFFFF">
+        <van-nav-bar title="记一笔" left-text="返回"  left-color="#fff" :border=false  @click-left="back"  left-arrow/>
+        <van-tabs  background="#01ADED" title-active-color="#83fbff" :border=false title-inactive-color="#ffffff"  color="#FFFFFF">
             <van-tab title="款项收支" ><Cashier></Cashier></van-tab>
             <van-tab title="收支事项" ><accounting></accounting></van-tab>
         </van-tabs>
@@ -30,21 +30,6 @@
     }
 </script>
 
-<style scoped>
-    .van-nav-bar__text {
-        color: #ffffff;
-    }
-    .van-nav-bar {
-        background-color: #01ADED;
-    }
-    .van-nav-bar .van-icon {
-        color: #FFFFFF;
-    }
-    .van-nav-bar__title {
-        color: #FFFFFF;
-    }
-    .van-tab__text {
-        position: relative;
-        color: #83fbff;
-    }
+<style  scoped>
+    @import "../../components/index.less";
 </style>

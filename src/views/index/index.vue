@@ -36,8 +36,15 @@
         </li>
       </ul>
     </div>
-    <div class="gclass ">
-      <van-button type="info" @click="Remember" to="/matter" block>记一笔</van-button>
+    <div  style="margin: 10px" >
+    <van-row type="flex" justify="center" >
+      <van-col span="15"
+        ><van-button type="info" @click="Remember" to="/matter" block
+          >记一笔</van-button
+        ></van-col
+      >
+      <van-col span="5"><van-button type="info" to="/Review">审核</van-button></van-col>
+    </van-row>
     </div>
     <div class="tar bg-f8 mt-5">
       <van-switch v-model="checked" size="24px" />
@@ -100,41 +107,62 @@
           is-link
           to="index"
         />
-        <van-cell title="开始日期" :value="tartData"  @click="tartShow = true" />
-        <van-calendar v-model="tartShow" @confirm="tartonConfirm" color="#1989fa" />
+        <van-cell title="开始日期" :value="tartData" @click="tartShow = true" />
+        <van-calendar
+          v-model="tartShow"
+          @confirm="tartonConfirm"
+          color="#1989fa"
+        />
         <van-cell title="结束日期" :value="endData" @click="endShow = true" />
-        <van-calendar v-model="endShow" @confirm="endonConfirm" color="#1989fa" />
-        <van-row >
-        <van-radio-group v-model="radio" class="ml-20 mt-20" direction="horizontal">
-          <van-col span="8"><van-radio name="1">支付时间</van-radio></van-col>
-          <van-col span="8"><van-radio name="2">提交时间</van-radio></van-col>
-          <van-col span="8"><van-radio name="3">审批时间</van-radio></van-col>
-        </van-radio-group>
-      </van-row>
-        <van-row type="flex" class="mt-20" justify="center">
-          <van-col span="6"><van-button size="normal"  round  icon="search"  type="info">搜索</van-button> </van-col>
-          <van-col span="6"><van-button size="normal" icon="replay" round   type="info">重置</van-button> </van-col>
+        <van-calendar
+          v-model="endShow"
+          @confirm="endonConfirm"
+          color="#1989fa"
+        />
+        <van-row>
+          <van-radio-group
+            v-model="radio"
+            class="ml-20 mt-20"
+            direction="horizontal"
+          >
+            <van-col span="8"><van-radio name="1">支付时间</van-radio></van-col>
+            <van-col span="8"><van-radio name="2">提交时间</van-radio></van-col>
+            <van-col span="8"><van-radio name="3">审批时间</van-radio></van-col>
+          </van-radio-group>
         </van-row>
-
+        <van-row type="flex" class="mt-20" justify="center">
+          <van-col span="6"
+            ><van-button size="normal" round icon="search" type="info"
+              >搜索</van-button
+            >
+          </van-col>
+          <van-col span="6"
+            ><van-button size="normal" icon="replay" round type="info"
+              >重置</van-button
+            >
+          </van-col>
+        </van-row>
       </form>
-      <van-overlay :show="dataShow" >
-        <van-cell-group class="switch"
-        >
-        <van-field
-
-                v-model="inputCodeValue"
-                center
-                style="border-radius: 10px"
-                clearable
-                size="small"
-                placeholder="请输入用户名"
-        >
-          <van-button slot="button" size="small" type="primary" @click="show=false">确定</van-button>
-        </van-field>
-
+      <van-overlay :show="dataShow">
+        <van-cell-group class="switch">
+          <van-field
+            v-model="inputCodeValue"
+            center
+            style="border-radius: 10px"
+            clearable
+            size="small"
+            placeholder="请输入用户名"
+          >
+            <van-button
+              slot="button"
+              size="small"
+              type="primary"
+              @click="show = false"
+              >确定</van-button
+            >
+          </van-field>
         </van-cell-group>
       </van-overlay>
-
     </div>
 
     <Footer page="index" />
@@ -145,22 +173,23 @@
 import Footer from "@/components/Footer";
 
 export default {
+  name:'index',
   data() {
     return {
-      show:false,
+      show: false,
       inputCodefocus: false,
-      popovarlay:false,
+      popovarlay: false,
       active: 0,
-      radio:1,
-      oninputFocus:'',
-      inputCodeValue:'',
+      radio: 1,
+      oninputFocus: "",
+      inputCodeValue: "",
       list: [],
       checked: true,
-      tartData: '',
-      endData:'',
+      tartData: "",
+      endData: "",
       tartShow: false,
       endShow: false,
-      dataShow:false
+      dataShow: false
     };
   },
   created() {
@@ -172,12 +201,11 @@ export default {
     Footer
   },
   methods: {
-    Remember(){
-      this.$router.push({path: '/matter'});
-
+    Remember() {
+      this.$router.push({ path: "/matter" });
     },
     formatDate(date) {
-      debugger
+      debugger;
       return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     },
     tartonConfirm(date) {
@@ -188,8 +216,8 @@ export default {
       this.endShow = false;
       this.endData = this.formatDate(date);
     },
-    inputCodeSpan(){
-      this.dataShow=true;
+    inputCodeSpan() {
+      this.dataShow = true;
     },
     onchange(index) {
       this.list = this[`list${index + 1}`];
@@ -210,11 +238,6 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style  scoped>
 @import "./index.less";
-.van-button--info {
-  color: #fff;
-  background-color:  #01ADED;
-  border: 0.02667rem solid  #01ADED;
-}
 </style>
