@@ -8,13 +8,22 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      redirect: "/index"
+      redirect: "/login"
     },
     {
       path: "/index",
       component: () => import("@/views/index/index"),
       meta: {
         title: "首页",
+        // 缓存首页
+        keepAlive: true
+      }
+    },
+    {
+      path: "/login",
+      component: () => import("@/views/login/index"),
+      meta: {
+        title: "登录",
         // 缓存首页
         keepAlive: true
       }
@@ -69,7 +78,7 @@ const router = new Router({
         {
           path: "staff",
           meta: {
-            title: "客户管理"
+            title: "职员管理"
           },
           component: () => import("@/views/my/staff/staff")
         },

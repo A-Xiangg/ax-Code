@@ -3,8 +3,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index";
 import "./assets/style/font/iconfont.css";
-import "@/assets/style/index.less";
+import "@/assets/style/index.less"
 // import $axios from "@/utils/request";
+import axios from "axios"
 import mixin from "./mixin/index";
 import store from "./store/index";
 
@@ -12,8 +13,9 @@ import "@/components/Vant";
 // rem
 import "amfe-flexible";
 // 把变量挂载到vue的原型上
-// Vue.prototype.$axios = $axios;
+ Vue.prototype.$axios = axios;
 // # 引入
+require('./Mock/Mock');
 import preview from 'vue-photo-preview';
 import 'vue-photo-preview/dist/skin.css';
 Vue.use(preview);

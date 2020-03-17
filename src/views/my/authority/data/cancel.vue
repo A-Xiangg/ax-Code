@@ -110,7 +110,6 @@
     }
 </script>
 
-<style lang="less" scoped>
-    @import "../authory.less";
+<style lang="less" >
 
 </style>

@@ -54,14 +54,16 @@
                       </div>
                     </div>
                     <div class="gb-item1">
-                      <button
-                        type="button"
-                        class="Authorization"
+                      <van-button
+                        type="default"
+                        color="#333"
+                        icon="records"
+                        round
                         @click="editshow = true"
-                        id="edit1"
+                        plain
+                        size="mini"
+                        >编辑</van-button
                       >
-                        <span class="icon iconfont icon-bianji"></span>编辑
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -222,8 +224,20 @@ export default {
       value: "",
       personnelValue: "",
       list: "",
-      editFrom: { username:'', clientName:'', personnelValue:'', message:'', Phone:'' },
-      addFrom: { username:'', clientName:'', personnelValue:'', message:'', Phone:'' },
+      editFrom: {
+        username: "",
+        clientName: "",
+        personnelValue: "",
+        message: "",
+        Phone: ""
+      },
+      addFrom: {
+        username: "",
+        clientName: "",
+        personnelValue: "",
+        message: "",
+        Phone: ""
+      },
       columns: ["杭州", "宁波", "温州", "嘉兴", "湖州"],
       addshow: false,
       editshow: false,
@@ -279,7 +293,6 @@ export default {
     },
     onClickLeft() {
       this.$router.push("/my/center");
-
     },
     onSubmit(values) {
       console.log("submit", values);
@@ -291,7 +304,7 @@ export default {
 };
 </script>
 
-<style lang="less" >
+<style lang="less">
 @import "client.less";
 .list-content {
   overflow: scroll;

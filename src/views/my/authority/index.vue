@@ -6,7 +6,7 @@
                 left-arrow
                 @click-left="onClickLeft"
         />
-        <van-tabs  background="#01ADED" title-active-color="#83fbff" :border=false title-inactive-color="#ffffff"  color="#FFFFFF">
+        <van-tabs  background="#01ADED" title-active-color="#83fbff"  title-inactive-color="#ffffff"  color="#FFFFFF">
             <van-tab title="设置管理员" ><cancel></cancel></van-tab>
             <van-tab title="取消管理员" ><Setup></Setup></van-tab>
         </van-tabs>
@@ -39,6 +39,7 @@
     }
 </script>
 
-<style lang="less"  scoped>
+<style lang="less"  >
     @import "../../../components/index.less";
+    @import "authory.less";
 </style>

@@ -1,7 +1,170 @@
 <template>
   <div class="list-content" id="list-content">
-      <div class="overplay " v-show="Mask" @click="Masks"></div>
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-list
+              v-model="loading"
+              :finished="finished"
+              finished-text="没有更多了"
+              @load="onLoad"
+      >
+        <div class="list-item" v-for="items in list" :key="items.Name">
+          <div class="gd-item">
+            <!--            数据展示模块-->
+            <div class="item" id="left1"  >
+              <div class="w100pc">
+                <van-row class="tables">
+                  <van-col span="18"><p class="p">客户:{{items.Name}}</p></van-col>
+                  <van-col span="6"><p class="p">款项收支</p></van-col>
+                </van-row>
+                <van-row class="tables">
+                  <van-col span="12"><p class="p">收支类型:收入</p></van-col>
+                  <van-col span="12"><p class="p">金额:{{items.Natural}}</p></van-col>
+                </van-row>
+                <van-row class="tables">
+                  <van-col span="12"><p class="p">收款方式:刷卡</p></van-col>
+                  <van-col span="12"
+                  ><p class="p">支付时间：{{items.Date}}</p></van-col
+                  >
+                </van-row>
+              </div>
+              <div class="w100pc">
+                  <div class="collapse-wrap" v-if="items.isActive" >
+                    <van-row class="tables">
+                      <van-col span="12"
+                      ><p class="p">提交人员:{{items.Name}}</p></van-col
+                      >
+                      <van-col span="12"
+                      ><p class="p">提交时间:{{items.Date}}</p></van-col
+                      >
+                    </van-row>
+                    <van-row class="tables">
+                      <van-col span="12"
+                      ><p class="p">审核人员:{{items.Name}}</p></van-col
+                      >
+                      <van-col span="12"
+                      ><p class="p">修改人员:{{items.Name}}</p></van-col
+                      >
+                    </van-row>
+                    <van-row class="tables">
+                      <van-col span="18"
+                      ><p class="p">备注:{{items.Remark}}</p></van-col
+                      >
+                      <van-col span="6"
+                      ><van-button
+                              type="primary"
+                              @click="show = true"
+                              size="small"
+                      >关联事项</van-button
+                      ></van-col
+                      >
+                    </van-row>
+                    <div class="main">
+                      <img
+                              preview="0"
+                              preview-text="描述文字"
+                              src="https://img.yzcdn.cn/vant/apple-1.jpg"
+                              alt
+                      />
+                      <img
+                              preview="0"
+                              preview-text="描述文字"
+                              src="https://img.yzcdn.cn/vant/apple-1.jpg"
+                              alt
+                      />
+                      <img
+                              preview="0"
+                              preview-text="描述文字"
+                              src="https://img.yzcdn.cn/vant/apple-1.jpg"
+                              alt
+                      />
+                      <img
+                              preview="0"
+                              preview-text="描述文字"
+                              src="https://img.yzcdn.cn/vant/apple-1.jpg"
+                              alt
+                      />
+                    </div>
+                    <div>
+                      <van-row>
+                        <van-col span="20"
+                        ><van-field
+                                v-model="message"
+                                rows="2"
+                                autosize
+                                label="审批意见"
+                                type="textarea"
+                                maxlength="50"
+                                placeholder="请输入评论"
+                                show-word-limit
+                        /></van-col>
+                        <van-col span="4">
+                          <div class="button">
+                            <van-button
+                                    size="mini"
+                                    color="#00b38a"
+                                    @click="byTest"
+                                    plain
+                                    hairline
+                                    type="primary"
+                            >通过</van-button
+                            >
+                          </div>
+                          <div class="button">
+                            <van-button
+                                    plain
+                                    size="mini"
+                                    color="red"
+                                    @click="RefuseTest"
+                                    hairline
+                                    type="info"
+                            >拒绝</van-button
+                            >
+                          </div></van-col
+                        >
+                      </van-row>
+                    </div>
+                  </div>
+
+              </div>
+              <a
+                      class="listmore"
+                      href="javascript:;"
+                      @click="commentClick(items)"
+              >{{listmoreValue}}</a
+              >
+            </div>
+            <div class="gd-item2">
+              <p>
+                <i class="icon iconfont icon-fuxuan" id="tongguo1"></i>
+                <i class="icon iconfont icon-jujue1" id="jujue1"></i>
+              </p>
+            </div>
+
+            <div class="Suggest">
+              <div class="top">
+                <div class="comment " v-show="comment && comment.length > 0">
+                  <div class="com-space" v-for="onecommet in comment">
+                    <div>
+                      <a href="javascript:;" class="reply">
+                        <span class="user"
+                        >{{ onecommet.name }}{{ onecommet.status }}:</span
+                        >
+                        {{ onecommet.content }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--            评论-->
+            <div class="commentDiv" @click="plclick">
+              <div class="textarea">评论...</div>
+            </div>
+          </div>
+        </div>
+      </van-list>
+    </van-pull-refresh>
+    <!--<van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-list
         v-model="loading"
         :finished="finished"
@@ -10,7 +173,7 @@
       >
         <div class="list-item">
           <div class="gd-item">
-            <!--            数据展示模块-->
+            &lt;!&ndash;            数据展示模块&ndash;&gt;
             <div class="item" id="left1">
               <div class="w100pc">
                 <van-row class="tables">
@@ -92,8 +255,9 @@
                             show-word-limit
                         /></van-col>
                         <van-col span="4"
-                          ><van-button
-                            size="small"
+                          >
+                          <div class="button"> <van-button
+                            size="mini"
                             color="#00b38a"
                             @click="byTest"
                             plain
@@ -101,15 +265,17 @@
                             type="primary"
                             >通过</van-button
                           >
+                          </div>
+                          <div class="button">
                           <van-button
                             plain
-                            size="small"
+                            size="mini"
                             color="red"
                             @click="RefuseTest"
                             hairline
                             type="info"
                             >拒绝</van-button
-                          ></van-col
+                          ></div></van-col
                         >
                       </van-row>
                     </div>
@@ -146,14 +312,14 @@
                 </div>
               </div>
             </div>
-            <!--            评论-->
+            &lt;!&ndash;            评论&ndash;&gt;
             <div class="commentDiv" @click="plclick">
               <div class="textarea">评论...</div>
             </div>
           </div>
         </div>
       </van-list>
-    </van-pull-refresh>
+    </van-pull-refresh>-->
     <!--评论输入框-->
         <div class="inset" v-show="enter" >
           <input type="text" placeholder="评论" v-model="srcomment" />
@@ -179,14 +345,15 @@ export default {
     return {
       message: "",
       srcomment: "",
+      listmoreValue: "详情 ↓",
       comment: [],
       list: [],
-      isActive: false,
       Mask: false,
       loading: false, //是否处于加载状态
       finished: false, //是否已加载完所有数据
       isLoading: false, //是否处于下拉刷新状态
-      enter: false //评论输入框
+      enter: false, //评论输入框
+      refreshing: false //是否处于下拉刷新状态
     };
   },
   directives: {
@@ -205,6 +372,49 @@ export default {
     window.addEventListener("touchmove", this.myTouchMove);
   },
   methods: {
+    commentClick:function(items){
+      items.isActive= ! items.isActive;
+      if (items.isActive===true){
+        this.listmoreValue="收回 ↑"
+      }else if(items.isActive===false){
+        this.listmoreValue="详情 ↓"
+      }
+    },
+    onLoad() {
+      //上拉加载
+      setTimeout(() => {
+        if (this.refreshing) {
+          this.list = [];
+          this.refreshing = false;
+        }
+        this.$axios
+                .get("/data/tableData", null)
+                .then(res => {
+                  debugger
+                  for (let i=0;i<res.data.length;i++){
+                    this.list.push(res.data[i]);
+                  }
+                  for (let i=0;i<this.list.length;i++){
+                      this.list[i].isActive=false
+                  }
+                  console.log(this.list);
+                  this.finished = true;
+                  this.loading = false;
+                  this.finished = true;
+                })
+                .catch(err => {
+                  console.log("登陆失败");
+                });
+      }, 1000);
+    },
+    onRefresh() {
+      setTimeout(() => {
+        this.finished = false;
+        this.refreshing = false;
+        this.list = [];
+        this.onLoad();
+      }, 500);
+    },
     ddd(){
       debugger
 
@@ -212,30 +422,6 @@ export default {
     plclick(){
       this.enter=true;
       this.Mask=true;
-    },
-    Masks(){
-      debugger
-      this.enter=false;
-      this.Mask=false;
-    },
-    onLoad() {
-      this.list = json;
-      //上拉加载
-      setTimeout(() => {
-        this.loading = false;
-        if (this.list.length >= 60) {
-          this.finished = true;
-        }
-      }, 500);
-    },
-    onRefresh() {
-      //下拉刷新
-      setTimeout(() => {
-        this.finished = false;
-        this.isLoading = false;
-        this.list = [];
-        this.onLoad();
-      }, 500);
     },
     // 列表滑动时，隐藏软键盘
     myTouchMove: function(evt) {
@@ -290,6 +476,6 @@ export default {
 };
 </script>
 
-<style lang="less"  scoped>
-@import "../submission.less";
+<style lang="less" scoped>
+  @import "../submission.less";
 </style>

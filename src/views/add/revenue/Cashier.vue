@@ -1,11 +1,11 @@
 <template>
   <div>
-    <van-form validate-first>
+    <van-form validate-first v-model="CashierForm">
       <!--        客户名称-->
       <van-field
         readonly
         clickable
-        v-model="clientValue"
+        v-model="CashierForm.clientValue"
         name="phone"
         @click="inputCodeSpan"
         label="客户名称"
@@ -15,7 +15,7 @@
         readonly
         clickable
         name="picker"
-        :value="serviceValue"
+        :value="CashierForm.serviceValue"
         label="服务人员"
         placeholder="选择服务人员"
         @click="servicePicker = true"
@@ -25,54 +25,54 @@
         readonly
         clickable
         name="picker"
-        :value="CollectionValue"
+        :value="CashierForm.CollectionValue"
         label="收款方式"
         placeholder="选择收款方式"
         @click="CollectionPicker = true"
       />
       <!--        金额-->
-      <van-field v-model="code" name="code" label="金额"
+      <van-field v-model="CashierForm.Amount" name="code" label="金额"
         ><van-button slot="button" size="small" type="primary" @click="Related=true" color="#01ADED"
           >关联事项</van-button
         ></van-field
       >
       <!--        收支方式-->
       <van-field name="radio" label="收支方式">
-        <van-radio-group v-model="radio" direction="horizontal" slot="input">
+        <van-radio-group v-model=" CashierForm.radio" direction="horizontal" slot="input">
           <van-radio name="1">收入</van-radio>
           <van-radio name="2">支出</van-radio>
         </van-radio-group>
-        <van-radio-group v-model="radio" direction="horizontal" slot="input">
+        <van-radio-group v-model="CashierForm.radio" direction="horizontal" slot="input">
           <van-radio name="3">预收</van-radio>
           <van-radio name="4">预付</van-radio>
         </van-radio-group>
       </van-field>
-      <!--     支付 时间-->
+      <!--     支付时间-->
       <van-field
         readonly
         clickable
         name="datetimePicker"
-        :value="currentDate"
+        :value="CashierForm.currentDate"
         label="支付时间"
         placeholder="点击选择时间"
         @click="showPicker = true"
       />
       <!--        备注-->
       <van-field
-        v-model="message"
+        v-model="CashierForm.message"
         rows="2"
         autosize
-        label="留言"
+        label="备注"
         type="textarea"
         maxlength="50"
-        placeholder="请输入留言"
+        placeholder="请输入备注"
         show-word-limit
       />
       <van-field name="uploader" label="图片上传">
-        <van-uploader v-model="uploader" slot="input" />
+        <van-uploader v-model="uploader" slot="input" :after-read="afterRead"/>
       </van-field>
       <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit">
+        <van-button round block @click="Cashier" type="info" native-type="submit">
           提交
         </van-button>
       </div>
@@ -140,19 +140,27 @@
 </template>
 
 <script>
+  import {CashierSubmit,CashierImg}from "../../../utils/data/add/add-matter"
+  import { GetCashierPersonnel,//获取服务人员信息
+    GetCashierCustomers//获取客户名称信息
+  } from "../../../utils/index";
 export default {
   name: "Cashier",
   data() {
     return {
-      code: "",
-      phone: "",
-      radio: 1,
-      value: "",
-      serviceValue: "",
-      CollectionValue: "",
+      CashierForm:{
+        clientValue:'',//客户名称
+        serviceValue: "",//服务人员
+        CollectionValue: "",//服务人员
+        Amount:'',//金额
+        radio: 1,//收支方式
+        currentDate: this.formatDate(new Date()),//支付时间
+        message: "",//备注
+      },
+
+
       inputCodeValue: "",
-      clientValue: "",
-      message: "",
+
       chosenContactId: null,
       editingContact: {},
       showList: true,
@@ -189,12 +197,15 @@ export default {
       servicePicker: false,
       Related: false,
       CollectionPicker: false,
-      uploader: [{ url: "https://img.yzcdn.cn/vant/leaf.jpg" }],
+      uploader: [],
       dataShow: false,
-      currentDate: this.formatDate(new Date())
+
     };
   },
   methods: {
+    Cashier(){
+      CashierSubmit().then()
+    },
     // 格式话时间
     formatter(type, val) {
       if (type === "year") {
@@ -218,6 +229,24 @@ export default {
     CollectionConfirm(value) {
       this.CollectionValue = value;
       this.CollectionPicker = false;
+    },
+    // 图片上传
+    afterRead(file) {
+      file.status = 'uploading';
+      file.message = '上传中...';
+
+      CashierImg().then(res=>{
+        if(res.code===1000){
+          file.status = 'uploading';
+          file.message = '上传成功';
+        }
+      }).each(err=>{
+        setTimeout(() => {
+          file.status = 'failed';
+          file.message = '上传失败';
+        }, 1000);
+      })
+
     },
     // 日期格式化
     formatDate(date) {

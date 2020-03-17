@@ -20,7 +20,7 @@
       </router-link>
     </li>
     <!-- <li class="item">
-      <router-link to="/demo" class="flex2 aic f20 text" active-class="active">
+      <router-link to="/related" class="flex2 aic f20 text" active-class="active">
         <van-icon class="text" name="user-o"></van-icon>
         <p class="mt-5 text f12">例子</p>
       </router-link>

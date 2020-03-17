@@ -6,9 +6,9 @@
       </p>
     </div>
     <div>
-      <van-form @submit="onSubmit">
+      <van-form @submit="onSubmit" v-model="loginfrom">
         <van-field
-          v-model="username"
+          v-model="loginfrom.username"
           class="mt-5"
           name="用户名"
           label="用户名"
@@ -16,7 +16,7 @@
           :rules="[{ required: true, message: '请填写用户名' }]"
         />
         <van-field
-          v-model="password"
+          v-model="loginfrom.password"
           type="password"
           class="mt-20"
           name="密码"
@@ -25,12 +25,14 @@
           :rules="[{ required: true, message: '请填写密码' }]"
         />
         <van-field
-          v-model="code"
+          v-model="loginfrom.code"
           name="code"
           class="mt-5"
           label="验证码"
           :rules="codeRules"
-        />
+        ><div slot="button" >
+          <img :src="vImg"  @click="getVerifyCode"/>
+        </div></van-field>
         <div style="margin: 50px;">
           <van-button
             round
@@ -63,8 +65,12 @@
 </template>
 
 <script>
-import { constants } from "crypto";
 import { Toast } from "vant";
+import {
+  login,
+  ObtainVerificationCode,
+  verificationCode
+} from "../../utils/data/login";
 export default {
   data() {
     this.phoneRules = [
@@ -76,10 +82,27 @@ export default {
       { validator: this.codeValidator, message: "验证码错误" }
     ];
     return {
-      username: "",
-      password: "",
-      code: '',
+      vImg:"@\assets\img\logo.png",
+      loginfrom: {
+        username: "",
+        password: "",
+        code: "",
+
+      }
     };
+  },
+  created(){
+    // 获取图片验证码
+    ObtainVerificationCode().then(res =>{
+      return 'data:image/png;base64,' + btoa(
+              new Uint8Array(res.data)
+                      .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+
+    }).then(data => {
+      _this.previewImage = data //图片地址 <img src='data' />
+
+    })
   },
   methods: {
     phoneValidator(val) {
@@ -99,15 +122,28 @@ export default {
     onSubmit(values) {
       console.log("submit", values);
     },
+    getVerifyCode(){
+
+    },
     login() {
       // 发送请求,用post方式
       let url = "/login";
       // 请求参数
       let data = {
-        phone: this.phone,
-        smsCode: this.smsCode
+        password: this.loginfrom.password,
+        username: this.loginfrom.username
       };
-      this.$router.push("/index");
+      // 登录
+      verificationCode(this.loginfrom.code).then(res => {
+        if (res === 1000) {
+          login(data).then(res => {
+            if (res === 1000) {
+              this.$router.push("/index");
+            }
+          });
+        }
+      });
+
       /*this.$axios
         .post(url, data)
         .then(res => {

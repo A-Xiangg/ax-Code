@@ -1,20 +1,27 @@
 <template>
-  <div >
+  <div>
     <van-nav-bar
-            title="我的提交"
-            left-color="#fff"
-            @click-right="show = true"
+      title="我的提交"
+      right-text="筛选"
+      @click-right="show = true"
     />
-    <van-tabs v-model="activeName" title-active-color="#83fbff" background="#01ADED"  :border=false title-inactive-color="#ffffff"	 color="#FFFFFF">
-      <van-tab title="待审批" name="a"><passed></passed></van-tab>
-      <van-tab title="已通过" name="c"><Pending></Pending></van-tab>
-      <van-tab title="未通过 " name="b"><notpass></notpass></van-tab>
+    <van-tabs
+      v-model="activeName"
+      title-active-color="#83fbff"
+      background="#01ADED"
+      :border="false"
+      title-inactive-color="#ffffff"
+      color="#FFFFFF"
+    >
+      <van-tab title="待审批" name="1"><Pending></Pending></van-tab>
+      <van-tab title="未通过 " name="0"><notpass></notpass></van-tab>
+      <van-tab title="已通过" name="2"><passed></passed></van-tab>
     </van-tabs>
     <Footer page="cart"></Footer>
     <van-popup
-            v-model="show"
-            position="right"
-            :style="{ width: '90%', height: '100%' }"
+      v-model="show"
+      position="right"
+      :style="{ width: '90%', height: '100%' }"
     >
       <filterFrom></filterFrom>
     </van-popup>
@@ -28,7 +35,7 @@ import filterFrom from "./approval/from";
 import notpass from "./approval/notpass";
 import Pending from "./approval/Pending";
 export default {
-  name:"submit",
+  name: "submit",
   components: {
     Pending,
     passed,
@@ -38,6 +45,8 @@ export default {
   },
   data() {
     return {
+
+      show: false,
       activeName: ""
     };
   },
@@ -46,5 +55,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
- @import "../../components/index.less";
+@import "../../components/index.less";
+@import "submission.less";
 </style>

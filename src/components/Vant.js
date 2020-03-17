@@ -9,7 +9,7 @@ import {
   List,
   Cell,
   Button,
-  SwipeCell ,
+  SwipeCell,
   Popup,
   Field,
   Dialog,
@@ -39,9 +39,13 @@ import {
   Col,
   Row,
   Card,
+  Checkbox,
+  CheckboxGroup
 } from "vant";
 
 Vue.use(Icon);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(List);
@@ -74,9 +78,9 @@ Vue.use(Uploader);
 Vue.use(ContactCard);
 Vue.use(ContactList);
 Vue.use(ContactEdit);
-Vue.use(PullRefresh );
-Vue.use(SwipeCell );
-Vue.use(Card  );
-Vue.use(Search  );
+Vue.use(PullRefresh);
+Vue.use(SwipeCell);
+Vue.use(Card);
+Vue.use(Search);
 Vue.use(Grid);
 Vue.use(GridItem);

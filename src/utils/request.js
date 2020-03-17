@@ -1,10 +1,14 @@
-// import axios from "axios";
+import axios from "axios";
 import store from "../store";
 import router from "../router";
 // 创建axios实例
+const config = {
+    proxy: 'http://192.168.0.8:8081' // 代理配置
+}
 const service = axios.create({
   baseURL: process.env.VUE_APP_URL, // api 的 VUE_APP_URL
-  timeout: 50000 // 请求超时时间(因为需要调试后台,所以设置得比较大)
+  timeout: 50000, // 请求超时时间(因为需要调试后台,所以设置得比较大)
+    withCredentials: true //跨域处理
 });
 
 // request拦截器,在请求之前做一些处理
@@ -43,4 +47,42 @@ service.interceptors.response.use(
     Promise.reject("网络异常");
   }
 );
-export default service;
+// 解析参数
+const formatParams = (method = 'GET', params) => {
+    // headers配置
+    const headers = {
+        'Content-Type': 'application/json;charset=utf-8',
+        changeOrigin: true
+    }
+    switch (method) {
+        case 'POST':
+            return {
+                headers,
+                method,
+                data: params
+            }
+        case 'PUT':
+            return {
+                headers,
+                method,
+                data: params
+            }
+        case 'DELETE':
+            return {
+                headers,
+                method
+            }
+        case 'GET':
+            return {
+                headers,
+                method
+            }
+        default:
+            return {
+                headers,
+                method,
+                params
+            }
+    }
+}
+export { service, formatParams, config }

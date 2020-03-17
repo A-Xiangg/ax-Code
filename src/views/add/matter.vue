@@ -1,7 +1,7 @@
 <template>
     <div>
-        <header  >
-        <van-nav-bar title="记一笔" left-text="返回"  left-color="#fff" :border=false  @click-left="back"  left-arrow/>
+        <header>
+        <van-nav-bar title="记一笔" left-text="返回"  left-color="#fff"   @click-left="back"  left-arrow/>
         <van-tabs  background="#01ADED" title-active-color="#83fbff" :border=false title-inactive-color="#ffffff"  color="#FFFFFF">
             <van-tab title="款项收支" ><Cashier></Cashier></van-tab>
             <van-tab title="收支事项" ><accounting></accounting></van-tab>

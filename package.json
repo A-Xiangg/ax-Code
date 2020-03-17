@@ -16,6 +16,7 @@
     "css-loader": "^3.2.0",
     "echarts": "^4.2.1",
     "jquery": "^3.4.1",
+    "mockjs": "^1.1.0",
     "style-loader": "^1.0.0",
     "vue": "^2.6.10",
     "vue-photo-preview": "^1.1.3",

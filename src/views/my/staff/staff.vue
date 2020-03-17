@@ -17,31 +17,33 @@
       />
     </form>
     <div class="list-content" id="list-content">
-      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-pull-refresh v-model="isLoading"   success-text="刷新成功"	@refresh="onRefresh">
         <van-list
           v-model="loading"
           :finished="finished"
+          finished-text="没有更多了"
+          error-text="请求失败，点击重新加载"
           @load="onLoad"
-          :offset="10"
+          :offset="5"
         >
-          <div class="list-item">
+          <div class="list-item" v-for="items in list" :key="items.Name">
             <div class="gd-item">
               <div class="item" id="left1">
                 <van-row class="tables">
-                  <van-col span="12"><p class="p">客户名称:张三</p></van-col>
-                  <van-col span="12"><p class="p">真实姓名:张思</p></van-col>
+                  <van-col span="12"><p class="p">客户名称:{{items.Name}}</p></van-col>
+                  <van-col span="12"><p class="p">真实姓名:{{items.Name}}</p></van-col>
                 </van-row>
                 <van-row class="tables">
                   <van-col span="12"><p class="p">在职状态:离职</p></van-col>
                   <van-col span="12"
-                    ><p class="p">手机号:1255582563</p></van-col
+                    ><p class="p">手机号:{{items.phone}}</p></van-col
                   >
                 </van-row>
-                <fold>
-                  <div class="collapse-wrap" v-show="isActive">
+                <fold >
+                  <div class="collapse-wrap" v-if="items.isActive">
                     <van-row class="tables">
                       <van-col span="12"
-                        ><p class="p">默认客户:利兰</p></van-col
+                        ><p class="p">默认客户:{{items.Name}}</p></van-col
                       >
                       <van-col span="12"
                         ><p class="p">默认收款方式:支付宝</p></van-col
@@ -53,13 +55,14 @@
                       <van-col span="12"
                         ><p class="p">
                           <van-button
-                            type="primary"
+                                  round
+                                  type="primary"
                             @click="editshow = true"
                             size="small"
                           >
                             <span class="icon iconfont icon-bianji"></span
                             >编辑</van-button
-                          ><van-button type="warning" @click="Leave" size="small"
+                          ><van-button type="warning" round  @click="Leave" size="small"
                             >离职</van-button
                           >
                         </p></van-col
@@ -70,8 +73,8 @@
                 <a
                   class="listmore"
                   href="javascript:;"
-                  @click="isActive = !isActive"
-                  >详情 ↓</a
+                  @click="commentClick(items)"
+                  >{{listmoreValue}}</a
                 >
               </div>
             </div>
@@ -81,7 +84,7 @@
     </div>
     <!--        添加员工对话框-->
     <van-popup v-model="addshow" position="bottom" :style="{ height: '100%' }">
-      <div style="padding: 30px 10px 10px 10px">
+      <div >
         <van-nav-bar
           title="添加客户"
           left-text="返回"
@@ -164,7 +167,7 @@
     </van-popup>
     <!--        编辑员工对话框-->
     <van-popup v-model="editshow" position="bottom" :style="{ height: '100%' }">
-      <div style="padding: 30px 10px 10px 10px">
+      <div >
         <van-nav-bar
           title="编辑员工"
           left-text="返回"
@@ -257,6 +260,7 @@
 </template>
 
 <script>
+  import { Toast } from 'vant';
     import { Dialog } from 'vant';
 let json = require("../../../utils/json");
 import fold from "@/utils/fold";
@@ -268,9 +272,10 @@ export default {
   },
   data() {
     return {
+      listmoreValue:'详情 ↓',
       value: "",
       personnelValue: "",
-      list: "",
+      list: [],
       isActive: false,
       editFrom: {
         username: "",
@@ -298,12 +303,15 @@ export default {
       isLoading: false //是否处于下拉刷新状态
     };
   },
-  mounted() {
-    let winHeight = document.documentElement.clientHeight; //视口大小
-    document.getElementById("list-content").style.height =
-      winHeight - 46 + "px"; //调整上拉加载框高度
-  },
   methods: {
+    commentClick(items){
+      items.isActive= ! items.isActive;
+      if (items.isActive===true){
+        this.listmoreValue="收回 ↑"
+      }else if(items.isActive===false){
+        this.listmoreValue="详情 ↓"
+      }
+    },
       Leave(){
           Dialog.confirm({
               message: '确定要离职吗'
@@ -329,23 +337,39 @@ export default {
     },
     // 获取资源表单列表
     onLoad() {
-      this.list = json;
+
       //上拉加载
       setTimeout(() => {
-        this.loading = false;
-        if (this.list.length >= 60) {
-          this.finished = true;
+        if (this.isLoading) {
+          this.list = [];
+          this.isLoading = false;
         }
-      }, 500);
+        this.$axios
+                .get("/data/tableData", null)
+                .then(res => {
+                  for (let i=0;i<res.data.length;i++){
+                    this.list.push(res.data[i]);
+                  }
+                  for (let i=0;i<this.list.length;i++){
+                    this.list[i].isActive=false
+                  }
+
+                  this.loading = false;
+                })
+                .catch(err => {
+                  console.log("登陆失败");
+                });
+      }, 1000);
     },
     onRefresh() {
       //下拉刷新
-      setTimeout(() => {
-        this.finished = false;
-        this.isLoading = false;
-        this.list = [];
-        this.onLoad();
-      }, 500);
+      // 清空列表数据
+      this.finished = false;
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.onLoad();
     },
     onCancel() {
       Toast("取消");
@@ -366,5 +390,6 @@ export default {
 <style scoped>
 @import "staff.less";
 @import "../../../components/index.less";
+ 
 
 </style>
